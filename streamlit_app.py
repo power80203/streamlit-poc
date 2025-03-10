@@ -6,6 +6,8 @@ st.set_page_config(page_title="Chatbot Dashboard", layout="wide")
 
 
 # Apply dark theme styling
+
+# Apply dark theme styling
 st.markdown(
     """
     <style>
@@ -20,6 +22,9 @@ st.markdown(
     .stSidebar {
         background-color: #1E1E1E;
         color: white;
+    }
+    .stSidebar .css-1d391kg p {
+        color: white !important;
     }
     .stChatMessage {
         background-color: #1E1E1E;
