@@ -4,6 +4,41 @@ from openai import OpenAI
 # Set page configuration
 st.set_page_config(page_title="Chatbot Dashboard", layout="wide")
 
+
+# Apply dark theme styling
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #121212;
+        color: white;
+    }
+    .stApp {
+        background-color: #121212;
+        color: white;
+    }
+    .stSidebar {
+        background-color: #1E1E1E;
+        color: white;
+    }
+    .stChatMessage {
+        background-color: #1E1E1E;
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 5px;
+    }
+    .stTextInput > div > div > input {
+        background-color: #333;
+        color: white;
+        border: 1px solid white;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # Sidebar with three options
 st.sidebar.title("📊 功能選單")
 page = st.sidebar.radio("選擇功能", ["交通壅塞", "人流分析", "路線改善"])
