@@ -23,20 +23,19 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# 輸入框
+# Chat input (always available)
 prompt = st.chat_input("請輸入訊息...")
 
-# OpenAI API Key
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if openai_api_key:
-    client = OpenAI(api_key=openai_api_key)
+if "openai_api_key" in st.session_state and st.session_state.openai_api_key:
+    # Create an OpenAI client
+    client = OpenAI(api_key=st.session_state.openai_api_key)
     
     if prompt:
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        # 生成回應
+        # Generate response
         stream = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages],
