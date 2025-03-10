@@ -4,39 +4,31 @@ from openai import OpenAI
 # Set page configuration
 st.set_page_config(page_title="Chatbot Dashboard", layout="wide")
 
-
 # Sidebar with three options
 st.sidebar.title("📊 功能選單")
-st.sidebar.page_link("交通壅塞", "#", label="Page 1")
-st.sidebar.page_link("人流分析", "#", label="Page 2", disabled=True)
-st.sidebar.page_link("路線改善", "#", label="Page 3", disabled=True)
+page = st.sidebar.radio("選擇功能", ["交通壅塞", "人流分析", "路線改善"])
 
+# 顯示當前頁面標題
+st.title(f"💬 {page} 對話助手")
 
 # Display login info at the top right
 st.markdown("<div style='text-align: right; font-size: 18px; font-weight: bold;'>🔑 使用者：admin</div>", unsafe_allow_html=True)
 
-# Title for chat area
-st.title("💬 交通壅塞對話助手")
-
-# Initialize session state for chat messages
+# 初始化 session state
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display chat messages
+# 顯示對話
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Chat input (always available)
+# 輸入框
 prompt = st.chat_input("請輸入訊息...")
 
-# Ask user for their OpenAI API key
+# OpenAI API Key
 openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    pass
-    #st.info("請輸入 OpenAI API key 才能啟用 AI 回應功能。", icon="🗝️")
-else:
-    # Create an OpenAI client
+if openai_api_key:
     client = OpenAI(api_key=openai_api_key)
     
     if prompt:
@@ -44,7 +36,7 @@ else:
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        # Generate response
+        # 生成回應
         stream = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages],
