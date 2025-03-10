@@ -4,9 +4,6 @@ from openai import OpenAI
 # Set page configuration
 st.set_page_config(page_title="Chatbot Dashboard", layout="wide")
 
-# Sidebar with three options
-st.sidebar.title("📊 功能選單")
-selected_option = st.sidebar("選擇功能：", ["交通壅塞", "人流分析", "路線改善"])
 
 # Sidebar with three options
 st.sidebar.title("📊 功能選單")
